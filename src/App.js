@@ -1,11 +1,15 @@
 import './App.css';
+import GlobalStyle from './GlobalStyles';
+import TitleQuoteGenerator from '../src/components/titleQuoteGenerator/TitleQuoteGenerator';
+
 
 function App() {
-  return (
-    <div className="App">
-        Random Quote Generator
-    </div>
-  );
+    return (
+        <>
+            <GlobalStyle />
+            <TitleQuoteGenerator />
+        </>
+    );
 }
 
 export default App;
