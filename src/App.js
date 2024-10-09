@@ -1,6 +1,7 @@
 import './App.css';
 import GlobalStyle from './GlobalStyles';
 import TitleQuoteGenerator from '../src/components/titleQuoteGenerator/TitleQuoteGenerator';
+import RandomQuote from '../src/components/randomQuote/RandomQuote';
 
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
         <>
             <GlobalStyle />
             <TitleQuoteGenerator />
+            <RandomQuote />
         </>
     );
 }
