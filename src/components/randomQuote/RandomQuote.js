@@ -14,18 +14,35 @@ const RandomQuote = () => {
 
     const fetchQuote = async () => {
         try {
-            const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://zenquotes.io/api/random'));
-            console.log(response);
+            const uniqueParam = `?nocache=${new Date().getTime()}`;
+            const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://zenquotes.io/api/random')}${uniqueParam}`);
+            console.log('Response received:', response);
+
 
             if (!response.ok) {
                 throw new Error('Error: ' + response.statusText);
             }
 
             const data = await response.json();
-            console.log(data);
+            console.log('Data received:', data);
+
             const quoteData = JSON.parse(data.contents);
-            setQuote(quoteData[0].q);
-            setAuthor(quoteData[0].a);
+            console.log('Parsed quote data:', quoteData);
+
+            if (quoteData[0].q.includes('Too many requests')) {
+                console.warn('Rate limit reached, delaying next request...');
+                setQuote('Слишком много запросов. Попробуйте позже.');
+                setAuthor('');
+                return;
+            }
+
+            
+            if (quoteData && quoteData.length > 0) {
+                setQuote(quoteData[0].q);
+                setAuthor(quoteData[0].a);
+            } else {
+                throw new Error('Invalid quote data');
+            }
 
         } catch (error) {
             console.error('Error fetching the quote: ', error);
